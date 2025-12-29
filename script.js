@@ -353,11 +353,16 @@ Filii filannoo Kee jiraadhu......
             const menuIcon = document.getElementById('menu-icon');
 
             // Load saved theme
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
+          // Default DARK mode (first visit)
+const savedTheme = localStorage.getItem('theme');
+
+if (!savedTheme) {
+    document.documentElement.classList.add('dark');
+    localStorage.theme = 'dark';
+} else {
+    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+}
+
 
             const toggleTheme = () => {
                 document.documentElement.classList.toggle('dark');
